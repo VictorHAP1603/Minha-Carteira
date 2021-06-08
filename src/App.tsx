@@ -6,11 +6,15 @@ import { ThemeProvider } from "styled-components";
 import dark from "./styles/themes/dark";
 import light from "./styles/themes/light";
 
+import DashBoard from "./pages/Dashboard/index";
+
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={dark}>
       <GlobalStyles />
-      <Layout />
+      <Layout>
+        <DashBoard />
+      </Layout>
     </ThemeProvider>
   );
 };

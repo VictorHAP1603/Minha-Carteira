@@ -1,7 +1,15 @@
 import React from "react";
 
+import ContentHeader from "../../components/ContentHeader/index";
+
+import { Container } from "./style";
+
 const Dashboard: React.FC = () => {
-  return <h1>Fila da puita</h1>;
+  return (
+    <Container>
+      <ContentHeader title="Dashboard" color="white" />
+    </Container>
+  );
 };
 
 export default Dashboard;
