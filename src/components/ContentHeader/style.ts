@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface ITitleContainerProps {
+  color: string;
+}
+
 export const Container = styled.div`
   width: 100%;
 
@@ -10,7 +14,7 @@ export const Container = styled.div`
   margin-bottom: 25px;
 `;
 
-export const TitleContainer = styled.div`
+export const TitleContainer = styled.div<ITitleContainerProps>`
   h1 {
     color: ${(props) => props.theme.colors.white};
     position: relative;
@@ -19,13 +23,13 @@ export const TitleContainer = styled.div`
       content: "";
       display: block;
       position: absolute;
-      bottom: -4px;
+      bottom: -5px;
       left: 0;
 
-      height: 5px;
+      height: 8px;
       width: 40%;
 
-      background-color: ${(props) => props.theme.colors.warning};
+      background-color: ${(props) => props.color};
     }
   }
 `;
