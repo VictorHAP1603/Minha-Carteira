@@ -18,7 +18,7 @@ export const expenses = [
     amount: "99.99",
     type: "saída",
     frequency: "recorrente",
-    date: "2022-01-23",
+    date: "2021-01-23",
   },
   {
     description: "Plano de Saúde",

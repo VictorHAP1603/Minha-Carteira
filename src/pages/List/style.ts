@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div``;
 
-export const Content = styled.div`
+export const Content = styled.main`
   /* height: 100vh; */
 `;
 
@@ -49,4 +49,9 @@ export const Filters = styled.div`
   .tag-selected {
     opacity: 1;
   }
+`;
+
+export const WithoutTransaction = styled.h1`
+  text-align: center;
+  color: ${(props) => props.theme.colors.white};
 `;

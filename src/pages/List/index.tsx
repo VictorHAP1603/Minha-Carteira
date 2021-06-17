@@ -9,7 +9,7 @@ import { gains } from "../../utils/gains";
 import { dateFormat } from "../../utils/dateFormat";
 import { amountFormat } from "../../utils/amountFormat";
 
-import { Container, Content, Filters } from "./style";
+import { Container, Content, Filters, WithoutTransaction } from "./style";
 import { Months } from "../../utils/months";
 
 interface IRouteProps {
@@ -30,7 +30,9 @@ interface IData {
 
 const List: React.FC<IRouteProps> = ({ match }) => {
   const [data, setData] = useState<IData[]>([]);
-  const [filterSelected, setFilterSelected] = useState<string>("recorrente");
+  const [filterFrequencySelected, setFilterFrequencySelected] = useState<
+    string[]
+  >(["recorrente", "eventual"]);
 
   const [monthSelected, setMonthSelected] = useState<string>(
     String(new Date().getMonth() + 1)
@@ -84,18 +86,22 @@ const List: React.FC<IRouteProps> = ({ match }) => {
       return (
         month === monthSelected &&
         year === yearSelected &&
-        item.frequency === filterSelected
+        filterFrequencySelected.includes(item.frequency)
       );
     });
 
     setData(filteredCards);
-  }, [monthSelected, yearSelected, listDatas, filterSelected]);
+  }, [monthSelected, yearSelected, listDatas, filterFrequencySelected]);
 
   function filterTable(typeFilter: string) {
-    setFilterSelected(typeFilter);
+    if (filterFrequencySelected.includes(typeFilter)) {
+      setFilterFrequencySelected(
+        filterFrequencySelected.filter((filter) => filter !== typeFilter)
+      );
+    } else {
+      setFilterFrequencySelected([...filterFrequencySelected, typeFilter]);
+    }
   }
-
-  // function filterTableSelects() {}
 
   return (
     <Container>
@@ -116,7 +122,7 @@ const List: React.FC<IRouteProps> = ({ match }) => {
         <button
           type="button"
           className={`${
-            filterSelected === "recorrente" ? "tag-selected" : ""
+            filterFrequencySelected.includes("recorrente") ? "tag-selected" : ""
           } tag-filter tag-filter-recurrent`}
           onClick={() => filterTable("recorrente")}
         >
@@ -126,7 +132,7 @@ const List: React.FC<IRouteProps> = ({ match }) => {
         <button
           type="button"
           className={`${
-            filterSelected === "eventual" ? "tag-selected" : ""
+            filterFrequencySelected.includes("eventual") ? "tag-selected" : ""
           } tag-filter tag-filter-eventual`}
           onClick={() => filterTable("eventual")}
         >
@@ -135,16 +141,20 @@ const List: React.FC<IRouteProps> = ({ match }) => {
       </Filters>
 
       <Content>
-        {data.map(({ description, date, amount, frequency }, index) => (
-          <HistoryFinanceCard
-            key={index}
-            tagColor="#e44c4e"
-            frequency={frequency}
-            title={description}
-            subTitle={dateFormat(date)}
-            amount={amountFormat(amount)}
-          />
-        ))}
+        {data.length > 0 ? (
+          data.map(({ description, date, amount, frequency }, index) => (
+            <HistoryFinanceCard
+              key={index}
+              tagColor="#e44c4e"
+              frequency={frequency}
+              title={description}
+              subTitle={dateFormat(date)}
+              amount={amountFormat(amount)}
+            />
+          ))
+        ) : (
+          <WithoutTransaction>Não possui nenhuma transação</WithoutTransaction>
+        )}
       </Content>
     </Container>
   );
