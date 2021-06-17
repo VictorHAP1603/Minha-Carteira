@@ -22,9 +22,10 @@ export const Filters = styled.div`
     margin: 0 10px;
 
     transition: 0.3s;
+    opacity: 0.7;
 
     &:hover {
-      opacity: 0.7;
+      opacity: 1;
     }
 
     &::after {
@@ -43,5 +44,9 @@ export const Filters = styled.div`
     &.tag-filter-eventual::after {
       background-color: ${(props) => props.theme.colors.success};
     }
+  }
+
+  .tag-selected {
+    opacity: 1;
   }
 `;

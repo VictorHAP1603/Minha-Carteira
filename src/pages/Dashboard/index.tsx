@@ -12,10 +12,15 @@ const Dashboard: React.FC = () => {
     { value: "Joao", label: "Joao" },
   ];
 
+  const titleProps = {
+    title: "Dashboard",
+    lineColor: "#e44c4e",
+  };
+
   return (
     <Container>
-      <ContentHeader title="Dashboard" color="#e44c4e">
-        <SelectInput options={options} />
+      <ContentHeader title={titleProps.title} color={titleProps.lineColor}>
+        <SelectInput options={options} onChange={() => {}} />
       </ContentHeader>
     </Container>
   );

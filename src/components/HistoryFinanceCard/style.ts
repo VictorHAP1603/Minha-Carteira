@@ -30,7 +30,10 @@ export const Tag = styled.div`
 
   height: 60%;
   width: 10px;
-  background-color: ${(props) => props.color};
+  background-color: ${(props) =>
+    props.color === "recorrente"
+      ? props.theme.colors.warning
+      : props.theme.colors.success};
 
   margin-right: 20px;
 `;

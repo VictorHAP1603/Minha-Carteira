@@ -7,6 +7,7 @@ interface IHistoryFinanceCard {
   title: string;
   subTitle: string;
   amount: string;
+  frequency: string;
 }
 
 const HistoryFinanceCard: React.FC<IHistoryFinanceCard> = ({
@@ -14,10 +15,11 @@ const HistoryFinanceCard: React.FC<IHistoryFinanceCard> = ({
   title,
   subTitle,
   amount,
+  frequency,
 }) => {
   return (
-    <Container>
-      <Tag color={tagColor} />
+    <Container data-frequency={frequency}>
+      <Tag color={frequency} />
 
       <DescriptionAmount>
         <span>{title}</span>
