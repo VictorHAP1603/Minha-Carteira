@@ -32,7 +32,7 @@ export const gains = [
     amount: "950.92",
     type: "entrada",
     frequency: "eventual",
-    date: "2020-02-23",
+    date: "2021-02-23",
   },
   {
     description: "Salário",
