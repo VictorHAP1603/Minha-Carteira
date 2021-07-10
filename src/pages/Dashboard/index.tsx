@@ -1,21 +1,37 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import ContentHeader from "../../components/ContentHeader/index";
 import SelectInput from "../../components/SelectInput";
-import { Months } from "../../utils/months";
+import WalletBox from "../../components/WalletBox";
+import MessageBox from "../../components/MessageBox";
 
+import { Months } from "../../utils/months";
 import { expenses } from "../../utils/expenses";
 import { gains } from "../../utils/gains";
 
-import { Container } from "./style";
+import { Container, Content } from "./style";
+
+interface IData {
+  description: string;
+  amount: string;
+  type: string;
+  frequency: string;
+  date: string;
+}
 
 const Dashboard: React.FC = () => {
+  const [data, setData] = useState<IData[]>([]);
+
   const [monthSelected, setMonthSelected] = useState<string>(
     String(new Date().getMonth() + 1)
   );
   const [yearSelected, setYearSelected] = useState<string>(
     String(new Date().getFullYear())
   );
+
+  const listDatas = useMemo(() => {
+    return [...gains, ...expenses];
+  }, []);
 
   const titleProps = {
     title: "Dashboard",
@@ -39,6 +55,32 @@ const Dashboard: React.FC = () => {
       .map((year) => ({ value: year, label: year }));
   }, []);
 
+  useEffect(() => {
+    const filteredCards = listDatas.filter((item) => {
+      const date = new Date(item.date);
+      const month = String(date.getMonth() + 1);
+      const year = String(date.getFullYear());
+
+      return month === monthSelected && year === yearSelected;
+    });
+
+    setData(filteredCards);
+  }, [monthSelected, yearSelected, listDatas]);
+
+  const gainsFiltered = data
+    .filter(({ type }) => type === "entrada")
+    .reduce((acm, number) => {
+      return (acm += Number(number.amount));
+    }, 0);
+
+  const expensesFiltered = data
+    .filter(({ type }) => type === "saída")
+    .reduce((acm, number) => {
+      return (acm += Number(number.amount));
+    }, 0);
+
+  const totalFiltered = gainsFiltered - expensesFiltered;
+
   return (
     <Container>
       <ContentHeader title={titleProps.title} color={titleProps.lineColor}>
@@ -53,6 +95,34 @@ const Dashboard: React.FC = () => {
           defaultValue={yearSelected}
         />
       </ContentHeader>
+
+      <Content>
+        <WalletBox
+          title="saldo"
+          amount={totalFiltered}
+          footerLabel="atualizado com base nas entradas e saídas"
+          icon="dolar"
+          color="#4e41f0"
+        />
+
+        <WalletBox
+          title="entradas"
+          amount={gainsFiltered}
+          footerLabel="atualizado com base nas entradas e saídas"
+          icon="arrow-up"
+          color="#f7931b"
+        />
+
+        <WalletBox
+          title="saídas"
+          amount={expensesFiltered}
+          footerLabel="atualizado com base nas entradas e saídas"
+          icon="arrow-down"
+          color="#e44c4e"
+        />
+
+        <MessageBox />
+      </Content>
     </Container>
   );
 };

@@ -71,6 +71,7 @@ const List: React.FC<IRouteProps> = ({ match }) => {
       const year = new Date(date).getFullYear();
       if (!uniqueYears.includes(year)) uniqueYears.push(year);
     });
+    uniqueYears.push(new Date().getFullYear());
 
     return uniqueYears
       .sort((a, b) => b - a)
@@ -89,6 +90,7 @@ const List: React.FC<IRouteProps> = ({ match }) => {
         filterFrequencySelected.includes(item.frequency)
       );
     });
+    // console.log(filteredCards);
 
     setData(filteredCards);
   }, [monthSelected, yearSelected, listDatas, filterFrequencySelected]);
