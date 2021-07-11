@@ -4,6 +4,7 @@ import ContentHeader from "../../components/ContentHeader/index";
 import SelectInput from "../../components/SelectInput";
 import WalletBox from "../../components/WalletBox";
 import MessageBox from "../../components/MessageBox";
+import PieChart from "../../components/PieChart";
 
 import HappyImg from "../../assets/happy.svg";
 import SadImg from "../../assets/sad.svg";
@@ -115,6 +116,28 @@ const Dashboard: React.FC = () => {
     }
   }, [totalFiltered]);
 
+  const relationsExpensesVsGains = useMemo(() => {
+    const total = gainsFiltered + expensesFiltered;
+
+    const gainsPercent = (gainsFiltered * 100) / total;
+    const expensesPercent = (expensesFiltered * 100) / total;
+
+    return [
+      {
+        name: "Entradas",
+        value: total,
+        percent: Number(gainsPercent.toFixed(1)),
+        color: "#f7931b",
+      },
+      {
+        name: "Saídas",
+        value: total,
+        percent: Number(expensesPercent.toFixed(1)),
+        color: "#e44",
+      },
+    ];
+  }, [expensesFiltered, gainsFiltered]);
+
   return (
     <Container>
       <ContentHeader title={titleProps.title} color={titleProps.lineColor}>
@@ -161,6 +184,8 @@ const Dashboard: React.FC = () => {
           footerText={messageBox.footerText}
           icon={messageBox.icon}
         />
+
+        <PieChart data={relationsExpensesVsGains} />
       </Content>
     </Container>
   );
