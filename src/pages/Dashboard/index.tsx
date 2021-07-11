@@ -5,6 +5,10 @@ import SelectInput from "../../components/SelectInput";
 import WalletBox from "../../components/WalletBox";
 import MessageBox from "../../components/MessageBox";
 
+import HappyImg from "../../assets/happy.svg";
+import SadImg from "../../assets/sad.svg";
+import GrinningImg from "../../assets/grinning.svg";
+
 import { Months } from "../../utils/months";
 import { expenses } from "../../utils/expenses";
 import { gains } from "../../utils/gains";
@@ -67,19 +71,49 @@ const Dashboard: React.FC = () => {
     setData(filteredCards);
   }, [monthSelected, yearSelected, listDatas]);
 
-  const gainsFiltered = data
-    .filter(({ type }) => type === "entrada")
-    .reduce((acm, number) => {
-      return (acm += Number(number.amount));
-    }, 0);
+  const gainsFiltered = useMemo(() => {
+    return data
+      .filter(({ type }) => type === "entrada")
+      .reduce((acm, number) => {
+        return (acm += Number(number.amount));
+      }, 0);
+  }, [data]);
 
-  const expensesFiltered = data
-    .filter(({ type }) => type === "saída")
-    .reduce((acm, number) => {
-      return (acm += Number(number.amount));
-    }, 0);
+  const expensesFiltered = useMemo(() => {
+    return data
+      .filter(({ type }) => type === "saída")
+      .reduce((acm, number) => {
+        return (acm += Number(number.amount));
+      }, 0);
+  }, [data]);
 
   const totalFiltered = gainsFiltered - expensesFiltered;
+
+  const messageBox = useMemo(() => {
+    if (totalFiltered > 0) {
+      return {
+        title: "Muito Bem!",
+        description: "Sua carteira está positiva!",
+        footerText: "Continue assim!. Considere investir o seu saldo",
+        icon: HappyImg,
+      };
+    } else if (totalFiltered === 0) {
+      return {
+        title: "Ufa, Foi Quase!",
+        description: "Neste mês, você gastou o que ganhou!.",
+        footerText: "Tome cuidado, no próximo mês tente poupar o seu dinheiro",
+        icon: GrinningImg,
+      };
+    } else {
+      return {
+        title: "Que Triste!",
+        description: "Neste mês, você gastou mais do que deveria.",
+        footerText:
+          "Verifique seus gastos e tente cortar algumas coisas desnecessárias !",
+        icon: SadImg,
+      };
+    }
+  }, [totalFiltered]);
 
   return (
     <Container>
@@ -121,7 +155,12 @@ const Dashboard: React.FC = () => {
           color="#e44c4e"
         />
 
-        <MessageBox />
+        <MessageBox
+          title={messageBox.title}
+          description={messageBox.description}
+          footerText={messageBox.footerText}
+          icon={messageBox.icon}
+        />
       </Content>
     </Container>
   );
