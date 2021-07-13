@@ -16,19 +16,17 @@ const HistoryFinanceCard: React.FC<IHistoryFinanceCard> = ({
   subTitle,
   amount,
   frequency,
-}) => {
-  return (
-    <Container data-frequency={frequency}>
-      <Tag color={frequency} />
+}) => (
+  <Container data-frequency={frequency}>
+    <Tag color={frequency} />
 
-      <DescriptionAmount>
-        <span>{title}</span>
-        <small>{subTitle}</small>
-      </DescriptionAmount>
+    <DescriptionAmount>
+      <span>{title}</span>
+      <small>{subTitle}</small>
+    </DescriptionAmount>
 
-      <h3>{amount}</h3>
-    </Container>
-  );
-};
+    <h3>{amount}</h3>
+  </Container>
+);
 
 export default HistoryFinanceCard;

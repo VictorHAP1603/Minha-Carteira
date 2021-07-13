@@ -8,16 +8,14 @@ interface IContentHeaderProps {
   children: React.ReactNode;
 }
 
-const ContentHeader = ({ title, color, children }: IContentHeaderProps) => {
-  return (
-    <Container>
-      <TitleContainer color={color}>
-        <h1>{title}</h1>
-      </TitleContainer>
+const ContentHeader = ({ title, color, children }: IContentHeaderProps) => (
+  <Container>
+    <TitleContainer color={color}>
+      <h1>{title}</h1>
+    </TitleContainer>
 
-      <Controllers>{children}</Controllers>
-    </Container>
-  );
-};
+    <Controllers>{children}</Controllers>
+  </Container>
+);
 
 export default ContentHeader;
