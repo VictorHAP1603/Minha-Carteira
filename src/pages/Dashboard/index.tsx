@@ -5,6 +5,7 @@ import SelectInput from "../../components/SelectInput";
 import WalletBox from "../../components/WalletBox";
 import MessageBox from "../../components/MessageBox";
 import PieChart from "../../components/PieChart";
+import HistoryBox from "../../components/HistoryBox";
 
 import HappyImg from "../../assets/happy.svg";
 import SadImg from "../../assets/sad.svg";
@@ -22,6 +23,12 @@ interface IData {
   type: string;
   frequency: string;
   date: string;
+}
+
+interface IHistoryBoxProps {
+  month: string;
+  amountEntry: number;
+  amountOutput: number;
 }
 
 const Dashboard: React.FC = () => {
@@ -138,6 +145,58 @@ const Dashboard: React.FC = () => {
     ];
   }, [expensesFiltered, gainsFiltered]);
 
+  const historyData = useMemo(() => {
+    return Months.map((value, month) => {
+      let amountEntry = 0;
+      let amountOutput = 0;
+
+      gains.forEach((gain) => {
+        const date = new Date(gain.date);
+        const gainMonth = date.getMonth();
+        const gainYear = date.getFullYear();
+
+        if (gainMonth === month && gainYear === +yearSelected) {
+          try {
+            amountEntry += +gain.amount;
+          } catch {
+            throw new Error("Amount invalid");
+          }
+        }
+      });
+
+      expenses.forEach((expense) => {
+        const date = new Date(expense.date);
+        const expenseMonth = date.getMonth();
+        const expenseYear = date.getFullYear();
+
+        if (expenseMonth === month && expenseYear === +yearSelected) {
+          try {
+            amountOutput += +expense.amount;
+          } catch {
+            throw new Error("Amount invalid");
+          }
+        }
+      });
+
+      return {
+        monthNumber: month,
+        month: value.slice(0, 3),
+        amountEntry: +amountEntry.toFixed(2),
+        amountOutput: +amountOutput.toFixed(2),
+      };
+    }).filter((item) => {
+      const currentMonth = new Date().getMonth();
+      const currentYear = new Date().getFullYear();
+
+      return (
+        (+yearSelected === currentYear && item.monthNumber <= currentMonth) ||
+        +yearSelected < currentYear
+      );
+    });
+  }, [yearSelected]);
+
+  console.log(historyData);
+
   return (
     <Container>
       <ContentHeader title={titleProps.title} color={titleProps.lineColor}>
@@ -186,6 +245,12 @@ const Dashboard: React.FC = () => {
         />
 
         <PieChart data={relationsExpensesVsGains} />
+
+        <HistoryBox
+          data={historyData}
+          lineColorAmountEntry="#f79b13"
+          lineColorAmountOutput="#e44"
+        />
       </Content>
     </Container>
   );
