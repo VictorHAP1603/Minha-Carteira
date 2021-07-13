@@ -28,32 +28,19 @@ export const ChartHeader = styled.header`
 
   display: flex;
   justify-content: space-between;
-`;
 
-export const LegendContainer = styled.ul`
-  list-style-type: none;
-  display: flex;
+  ul {
+    list-style-type: none;
+    display: flex;
 
-  li + li {
-    margin-left: 20px;
-  }
-`;
+    li {
+      > div {
+        margin-right: 10px;
+      }
+    }
 
-export const Legend = styled.li<ILegendProps>`
-  display: flex;
-  align-items: center;
-
-  height: 100%;
-
-  > div {
-    width: 30px;
-    height: 30px;
-    border-radius: 3px;
-    background-color: ${(props) => props.color};
-    margin-right: 10px;
-  }
-
-  > span {
-    font-weight: 500;
+    li + li {
+      margin-left: 20px;
+    }
   }
 `;

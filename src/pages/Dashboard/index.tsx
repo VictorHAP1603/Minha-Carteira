@@ -6,6 +6,7 @@ import WalletBox from "../../components/WalletBox";
 import MessageBox from "../../components/MessageBox";
 import PieChart from "../../components/PieChart";
 import HistoryBox from "../../components/HistoryBox";
+import BarChartBox from "../../components/BarChartBox";
 
 import HappyImg from "../../assets/happy.svg";
 import SadImg from "../../assets/sad.svg";
@@ -105,6 +106,13 @@ const Dashboard: React.FC = () => {
         footerText: "Continue assim!. Considere investir o seu saldo",
         icon: HappyImg,
       };
+    } else if (totalFiltered === 0 && expensesFiltered === 0) {
+      return {
+        title: "Ops!",
+        description: "Neste mês, não há registro de entradas ou saídas.",
+        footerText: "Parece que você não fez nenhuma compra nesse mês",
+        icon: GrinningImg,
+      };
     } else if (totalFiltered === 0) {
       return {
         title: "Ufa, Foi Quase!",
@@ -121,7 +129,7 @@ const Dashboard: React.FC = () => {
         icon: SadImg,
       };
     }
-  }, [totalFiltered]);
+  }, [totalFiltered, expensesFiltered]);
 
   const relationsExpensesVsGains = useMemo(() => {
     const total = gainsFiltered + expensesFiltered;
@@ -133,13 +141,13 @@ const Dashboard: React.FC = () => {
       {
         name: "Entradas",
         value: total,
-        percent: Number(gainsPercent.toFixed(1)),
+        percent: Number(gainsPercent.toFixed(1)) || 0,
         color: "#f7931b",
       },
       {
         name: "Saídas",
         value: total,
-        percent: Number(expensesPercent.toFixed(1)),
+        percent: Number(expensesPercent.toFixed(1)) || 0,
         color: "#e44",
       },
     ];
@@ -195,7 +203,84 @@ const Dashboard: React.FC = () => {
     });
   }, [yearSelected]);
 
-  console.log(historyData);
+  const relationsExpensesRecurrentVsEventual = useMemo(() => {
+    let amountRecurrent = 0;
+    let amountEventual = 0;
+
+    let total = 0;
+
+    expenses
+      .filter((expense) => {
+        const date = new Date(expense.date);
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+
+        return year === +yearSelected && month === +monthSelected;
+      })
+      .forEach((expense) => {
+        total += +expense.amount;
+        if (expense.frequency === "eventual") {
+          amountEventual += +expense.amount;
+        } else {
+          amountRecurrent += +expense.amount;
+        }
+      });
+
+    return [
+      {
+        name: "Recorrente",
+        amount: amountRecurrent,
+        percent: +((amountRecurrent * 100) / total).toFixed(1) || 0,
+        color: "#f97",
+      },
+      {
+        name: "Eventual",
+        amount: amountEventual,
+        percent: +((amountEventual * 100) / total).toFixed(1) || 0,
+        color: "#e44",
+      },
+    ];
+  }, [monthSelected, yearSelected]);
+
+  const relationsGainsRecurrentVsEventual = useMemo(() => {
+    let amountRecurrent = 0;
+    let amountEventual = 0;
+
+    let total = 0;
+
+    gains
+      .filter((gain) => {
+        const date = new Date(gain.date);
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+
+        return year === +yearSelected && month === +monthSelected;
+      })
+      .forEach((gain) => {
+        total += +gain.amount;
+
+        if (gain.frequency === "eventual") {
+          amountEventual += +gain.amount;
+        } else {
+          amountRecurrent += +gain.amount;
+        }
+      });
+
+    return [
+      {
+        name: "Recorrente",
+        amount: amountRecurrent,
+        percent: +((amountRecurrent * 100) / total).toFixed(1) || 0,
+        color: "#f97",
+      },
+      {
+        name: "Eventual",
+        amount: amountEventual,
+        percent: +((amountEventual * 100) / total).toFixed(1) || 0,
+        color: "#e44",
+      },
+    ];
+  }, [monthSelected, yearSelected]);
 
   return (
     <Container>
@@ -250,6 +335,16 @@ const Dashboard: React.FC = () => {
           data={historyData}
           lineColorAmountEntry="#f79b13"
           lineColorAmountOutput="#e44"
+        />
+
+        <BarChartBox
+          data={relationsExpensesRecurrentVsEventual}
+          title="Saídas"
+        />
+
+        <BarChartBox
+          data={relationsGainsRecurrentVsEventual}
+          title="Entradas"
         />
       </Content>
     </Container>

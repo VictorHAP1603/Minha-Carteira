@@ -18,59 +18,74 @@ export const Container = styled.div`
 
 export const SideLeft = styled.aside`
   padding: 30px 20px;
+  flex: 1;
 
   > h2 {
     margin-bottom: 20px;
   }
-`;
 
-export const LegendContainer = styled.ul`
-  list-style: none;
-  height: 170px;
-  padding-right: 15px;
+  > ul {
+    height: fit-content;
 
-  overflow-y: scroll;
+    li {
+      span {
+        margin-left: 10px;
+      }
+    }
 
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.colors.secondary};
-    border-radius: 10px;
-  }
-  ::-webkit-scrollbar-track {
-    background-color: ${(props) => props.theme.colors.tertiary};
-    border-radius: 10px;
+    li + li {
+      margin-top: 20px;
+    }
   }
 `;
 
-export const Legend = styled.li<ILegendProps>`
-  display: flex;
-  align-items: center;
+// export const LegendContainer = styled.ul`
+//   list-style: none;
+//   height: 170px;
+//   padding-right: 15px;
 
-  margin-bottom: 7px;
-  font-size: 16px;
+//   overflow-y: scroll;
 
-  > div {
-    background-color: ${(props) => props.color};
-    width: auto;
-    height: auto;
+//   ::-webkit-scrollbar {
+//     width: 10px;
+//   }
+//   ::-webkit-scrollbar-thumb {
+//     background-color: ${(props) => props.theme.colors.secondary};
+//     border-radius: 10px;
+//   }
+//   ::-webkit-scrollbar-track {
+//     background-color: ${(props) => props.theme.colors.tertiary};
+//     border-radius: 10px;
+//   }
+// `;
 
-    border-radius: 5px;
-    font-size: 14px;
-    line-height: 40px;
-    text-align: center;
-    font-weight: bold;
+// export const Legend = styled.li<ILegendProps>`
+//   display: flex;
+//   align-items: center;
 
-    padding: 3px;
-  }
+//   margin-bottom: 7px;
+//   font-size: 16px;
 
-  > span {
-    margin-left: 10px;
-  }
-`;
+//   > div {
+//     background-color: ${(props) => props.color};
+//     width: auto;
+//     height: auto;
+
+//     border-radius: 5px;
+//     font-size: 14px;
+//     line-height: 40px;
+//     text-align: center;
+//     font-weight: bold;
+
+//     padding: 3px;
+//   }
+
+//   > span {
+//     margin-left: 10px;
+//   }
+// `;
 
 export const SideRight = styled.main`
-  width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  flex: 1;
 `;

@@ -9,14 +9,9 @@ import {
 } from "recharts";
 
 import { amountFormat } from "../../utils/amountFormat";
+import LegendContainer from "../LegendContainer";
 
-import {
-  Container,
-  ChartContainer,
-  ChartHeader,
-  LegendContainer,
-  Legend,
-} from "./style";
+import { Container, ChartContainer, ChartHeader } from "./style";
 
 interface IHistoryBoxProps {
   data: {
@@ -38,17 +33,10 @@ const HistoryBox: React.FC<IHistoryBoxProps> = ({
       <ChartHeader>
         <h2>Histórico de Saldo</h2>
 
-        <LegendContainer>
-          <Legend color={lineColorAmountEntry}>
-            <div></div>
-            <span>Entradas</span>
-          </Legend>
-
-          <Legend color={lineColorAmountOutput}>
-            <div></div>
-            <span>Saídas</span>
-          </Legend>
-        </LegendContainer>
+        <LegendContainer
+          entry={{ color: "#f97", percent: false, text: "Entradas" }}
+          output={{ color: "#e44", percent: false, text: "Saídas" }}
+        />
       </ChartHeader>
 
       <ChartContainer>
