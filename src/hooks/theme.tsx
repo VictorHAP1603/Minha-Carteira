@@ -34,7 +34,7 @@ const ThemeContext = createContext<IThemeContext>({} as IThemeContext);
 
 const ThemeProvider = ({ children }: IThemeProvider): JSX.Element => {
   const themeSaved = useMemo(() => {
-    const saved = localStorage.getItem("theme");
+    const saved = localStorage.getItem("@minha-carteira:theme");
 
     switch (saved) {
       case "dark":

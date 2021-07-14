@@ -17,8 +17,11 @@ import {
 } from "./style";
 
 import img_logo from "../../assets/logo.svg";
+import { useAuth } from "../../hooks/auth";
 
 const Aside: React.FC = () => {
+  const { signOut } = useAuth();
+
   return (
     <Container>
       <Header>
@@ -27,7 +30,7 @@ const Aside: React.FC = () => {
       </Header>
 
       <MenuContainer>
-        <MenuItemLink href="/dashboard">
+        <MenuItemLink href="/">
           <MdDashboard />
           DashBoard
         </MenuItemLink>
@@ -42,7 +45,7 @@ const Aside: React.FC = () => {
           Saidas
         </MenuItemLink>
 
-        <MenuItemLink href="/logout">
+        <MenuItemLink href="#" onClick={() => signOut()}>
           <MdExitToApp />
           Sair
         </MenuItemLink>

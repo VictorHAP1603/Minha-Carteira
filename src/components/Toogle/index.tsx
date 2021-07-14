@@ -6,7 +6,7 @@ import { Container, ToggleLabel, ToggleSelector } from "./style";
 const Toggle: React.FC = () => {
   const { toggleTheme, theme: themeContext } = useTheme();
   const themeStorage = useMemo(() => {
-    const theme = localStorage.getItem("theme");
+    const theme = localStorage.getItem("@minha-carteira:theme");
 
     switch (theme) {
       case "dark":
@@ -29,9 +29,9 @@ const Toggle: React.FC = () => {
 
   function setThemeLocalStorage() {
     if (themeContext.title === "dark") {
-      localStorage.setItem("theme", "light");
+      localStorage.setItem("@minha-carteira:theme", "light");
     } else {
-      localStorage.setItem("theme", "dark");
+      localStorage.setItem("@minha-carteira:theme", "dark");
     }
   }
 

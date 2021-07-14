@@ -8,7 +8,7 @@ import Layout from "../components/Layout";
 const AppRoutes: React.FC = () => (
   <Layout>
     <Switch>
-      <Route path="/dashboard" component={DashBoard} exact />
+      <Route path="/" component={DashBoard} exact />
       <Route path="/list/:type" component={List} />
     </Switch>
   </Layout>
