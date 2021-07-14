@@ -26,12 +26,6 @@ interface IData {
   date: string;
 }
 
-interface IHistoryBoxProps {
-  month: string;
-  amountEntry: number;
-  amountOutput: number;
-}
-
 const Dashboard: React.FC = () => {
   const [data, setData] = useState<IData[]>([]);
 

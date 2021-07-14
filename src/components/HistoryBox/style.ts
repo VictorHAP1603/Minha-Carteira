@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-interface ILegendProps {
-  color: string;
-}
-
 export const Container = styled.div`
   height: 360px;
   color: ${(props) => props.theme.colors.white};
