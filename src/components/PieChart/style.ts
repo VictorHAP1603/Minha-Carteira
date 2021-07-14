@@ -10,6 +10,12 @@ export const Container = styled.div`
 
   border-radius: 7px;
   display: flex;
+  /* 
+  .recharts-wrapper {
+    > svg {
+      width: 100% !important;
+    }
+  } */
 `;
 
 export const SideLeft = styled.aside`

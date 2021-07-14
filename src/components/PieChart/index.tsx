@@ -35,14 +35,6 @@ const PieChartGraph: React.FC<IPieChartProps> = ({ data }) => {
             text: "Saídas",
           }}
         />
-        {/* <LegendContainer>
-        {data.map((indicator) => (
-          <Legend color={indicator.color} key={indicator.name}>
-            <div>{indicator.percent}%</div>
-            <span>{indicator.name}</span>
-          </Legend>
-        ))}
-      </LegendContainer> */}
       </SideLeft>
 
       <SideRight>

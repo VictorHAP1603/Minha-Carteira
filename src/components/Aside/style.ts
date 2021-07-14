@@ -6,6 +6,20 @@ export const Container = styled.div`
   padding-left: 20px;
 
   border-right: 1px solid ${(props) => props.theme.colors.gray};
+
+  transition: 0.5s;
+
+  @media (max-width: 768px) {
+    position: absolute;
+    transform: translate(-100%);
+    z-index: 1000;
+    height: 100%;
+
+    padding: 0 15px;
+    /* display: none; */
+    /* left: 0;
+    top: 0; */
+  }
 `;
 
 export const Header = styled.header`

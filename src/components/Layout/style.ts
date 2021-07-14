@@ -10,4 +10,15 @@ export const Container = styled.div`
     "AS CT";
 
   height: 100vh;
+
+  @media (max-width: 768px) {
+    position: relative;
+
+    grid-template-columns: 1fr;
+    grid-template-rows: 70px 1fr;
+
+    grid-template-areas:
+      "MH"
+      "CT";
+  }
 `;
