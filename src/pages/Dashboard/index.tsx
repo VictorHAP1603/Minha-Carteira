@@ -225,7 +225,7 @@ const Dashboard: React.FC = () => {
         name: "Recorrente",
         amount: amountRecurrent,
         percent: +((amountRecurrent * 100) / total).toFixed(1) || 0,
-        color: "#f97",
+        color: "#f7931b",
       },
       {
         name: "Eventual",
@@ -265,7 +265,7 @@ const Dashboard: React.FC = () => {
         name: "Recorrente",
         amount: amountRecurrent,
         percent: +((amountRecurrent * 100) / total).toFixed(1) || 0,
-        color: "#f97",
+        color: "#f7931b",
       },
       {
         name: "Eventual",

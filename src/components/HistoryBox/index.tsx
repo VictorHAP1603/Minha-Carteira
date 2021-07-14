@@ -33,7 +33,7 @@ const HistoryBox: React.FC<IHistoryBoxProps> = ({
       <h2>Histórico de Saldo</h2>
 
       <LegendContainer
-        entry={{ color: "#f97", percent: false, text: "Entradas" }}
+        entry={{ color: "#f7931b", percent: false, text: "Entradas" }}
         output={{ color: "#e44", percent: false, text: "Saídas" }}
       />
     </ChartHeader>

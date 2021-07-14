@@ -29,7 +29,7 @@ const BarChartBox: React.FC<IBarChartBox> = ({ data, title }) => {
 
         <LegendContainer
           entry={{
-            color: "#f97",
+            color: "#f7931b",
             percent: recurrentPercent,
             text: "Recorrentes",
           }}

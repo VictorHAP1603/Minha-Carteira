@@ -25,7 +25,7 @@ const PieChartGraph: React.FC<IPieChartProps> = ({ data }) => {
 
         <LegendContainer
           entry={{
-            color: "#f97",
+            color: "#f7931b",
             percent: entryPercent,
             text: "Entradas",
           }}
