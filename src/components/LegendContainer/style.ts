@@ -35,4 +35,13 @@ export const Legend = styled.li<ILegendProps>`
   > span {
     font-weight: 500;
   }
+
+  @media (max-width: 550px) {
+    > div {
+      min-width: 30px;
+      min-height: 30px;
+
+      /* margin-right: 10px; */
+    }
+  }
 `;

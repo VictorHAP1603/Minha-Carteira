@@ -24,4 +24,36 @@ export const Container = styled.div`
       font-size: 18px;
     }
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+
+    > header {
+      h1 {
+        font-size: 24px;
+      }
+      img {
+        width: 20px;
+        height: 20px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+
+  @media (max-width: 550px) {
+    > header {
+      img {
+        height: 35px;
+
+        width: 35px;
+      }
+
+      p {
+        font-size: 18px;
+      }
+    }
+  }
 `;

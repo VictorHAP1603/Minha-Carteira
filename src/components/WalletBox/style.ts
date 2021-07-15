@@ -48,4 +48,18 @@ export const Container = styled.div<IContainerProps>`
       font-size: 22px;
     }
   }
+
+  @media (max-width: 550px) {
+    width: 100%;
+
+    > span {
+      display: block;
+      font-size: 16px;
+      margin: 15px 0 4px 0;
+    }
+
+    > h1 {
+      font-size: 26px;
+    }
+  }
 `;

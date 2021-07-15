@@ -12,6 +12,10 @@ export const Container = styled.div`
   justify-content: space-between;
 
   margin-bottom: 25px;
+
+  @media (max-width: 430px) {
+    flex-direction: column;
+  }
 `;
 
 export const TitleContainer = styled.div<ITitleContainerProps>`
@@ -30,6 +34,12 @@ export const TitleContainer = styled.div<ITitleContainerProps>`
       width: 40%;
 
       background-color: ${(props) => props.color};
+    }
+  }
+
+  @media (max-width: 430px) {
+    h1 {
+      margin-bottom: 30px;
     }
   }
 `;
