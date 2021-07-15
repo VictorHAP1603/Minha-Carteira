@@ -1,9 +1,12 @@
 import React, { useMemo } from "react";
 
 import { Container, Profile, Welcome, UserName } from "./style";
-import Toggle from "../Toogle/index";
+
 import emojis from "../../utils/emojis";
 import { useMedia } from "../../hooks/useMedia";
+
+import Toggle from "../Toogle/index";
+import ButtonMobile from "./ButtonMobile";
 
 const MainHeader: React.FC = () => {
   const emoji = useMemo(() => {
@@ -16,7 +19,7 @@ const MainHeader: React.FC = () => {
 
   return (
     <Container>
-      {!match && <Toggle />}
+      {match ? <ButtonMobile /> : <Toggle />}
 
       <Profile>
         <Welcome>Olá, {emoji} </Welcome>

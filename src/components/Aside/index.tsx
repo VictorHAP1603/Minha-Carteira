@@ -17,13 +17,20 @@ import {
 } from "./style";
 
 import img_logo from "../../assets/logo.svg";
+
 import { useAuth } from "../../hooks/auth";
+import { useMobileMenu } from "../../hooks/useMobileMenu";
+import { useMedia } from "../../hooks/useMedia";
+
+import Toggle from "../Toogle";
 
 const Aside: React.FC = () => {
   const { signOut } = useAuth();
+  const { isOpened } = useMobileMenu();
+  const match = useMedia("(max-width: 768px)");
 
   return (
-    <Container>
+    <Container isOpened={isOpened}>
       <Header>
         <LogoImg src={img_logo} alt="Logo Minha Carteira" />
         <Title>Minha Carteira</Title>
@@ -49,6 +56,8 @@ const Aside: React.FC = () => {
           <MdExitToApp />
           Sair
         </MenuItemLink>
+
+        {match && <Toggle />}
       </MenuContainer>
     </Container>
   );

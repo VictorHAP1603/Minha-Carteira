@@ -16,13 +16,10 @@ export const AuthProvider: React.FC = ({ children }): JSX.Element => {
     return !!isLogged;
   });
 
-  let history = useHistory();
-
   const signIn = (email: string, password: string) => {
     if (email === "valvesperricci@yahoo.com.br" && password === "123") {
       localStorage.setItem("@minha-carteira:logged", "true");
       setLogged(true);
-      // return <Redirect to="/dashboard" />;
     } else {
       alert("Senha e/ou usuário inválidos");
     }

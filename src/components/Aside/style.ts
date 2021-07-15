@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+interface IContainerMobileProps {
+  isOpened: boolean;
+}
+
+export const Container = styled.div<IContainerMobileProps>`
   grid-area: AS;
   background-color: ${(props) => props.theme.colors.secondary};
   padding-left: 20px;
@@ -11,11 +15,16 @@ export const Container = styled.div`
 
   @media (max-width: 768px) {
     position: absolute;
-    transform: translate(-100%);
+    top: 70px;
+    transform: ${(props) =>
+      props.isOpened ? "translate(0%)" : "translate(-100%)"};
     z-index: 1000;
-    height: 100%;
+    height: calc(100% - 70px);
 
     padding: 0 15px;
+
+    display: flex;
+    flex-direction: column;
     /* display: none; */
     /* left: 0;
     top: 0; */
@@ -48,6 +57,17 @@ export const MenuContainer = styled.nav`
 
   position: sticky;
   top: 130px;
+
+  @media (max-width: 768px) {
+    /* height: 100%; */
+    padding-bottom: 40px;
+
+    flex: 1;
+
+    > div {
+      margin-top: auto;
+    }
+  }
 `;
 
 export const MenuItemLink = styled.a`
