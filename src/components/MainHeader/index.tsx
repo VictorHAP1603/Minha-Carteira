@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 
 import { Container, Profile, Welcome, UserName } from "./style";
 
-import emojis from "../../utils/emojis";
+import { emojis } from "../../utils/emojis";
 import { useMedia } from "../../hooks/useMedia";
 
 import Toggle from "../Toogle/index";
